@@ -1,0 +1,61 @@
+Retreiver imp
+
+conda activate ret_3.12
+
+Backend
+Run server:
+	DJANGO_SETTINGS_MODULE=config.settings_local python django/manage.py runserver
+	
+Device return fulfilment:
+	DJANGO_SETTINGS_MODULE=config.settings_local python django/manage.py run_fulfillment
+	
+Deployment order fulfilment:
+	DJANGO_SETTINGS_MODULE=config.settings_local python django/manage.py run_deploy_fulfillment
+	
+Frontend
+run frontend:
+	yarn start
+	
+install node modules:
+	yarn
+	
+create build:
+	yarn build
+ 
+ 
+Admin user: iwcts@helloretriever.com
+
+
+Postmark ( Retriever Dev and staging )- omkariwcts / D@ata4687care
+
+
+Squarespace Website-
+anurag@levertechnology.com / D@ata12care
+
+Production link- https://helloretriever.com/
+Dev Link: https://www.retrieverweb.dev.indous.in/ 
+https://octopus-dachshund-tnds.squarespace.com/config/
+Password- Retriever2025$1!
+
+https://retrieverweb.dev.indous.in/
+password - Retriever2025$1!
+
+
+google account
+email: iwcts@helloretriever.com
+password: Iscon@tria8040
+
+
+Microsoft azure account-
+omkaradmin@HelloRetriever.onmicrosoft.com / Omkar@9241
+
+
+okta trial: https://trial-3402240.okta.com/oauth2/v1/authorize?client_id=okta.2b1959c8-bcc0-56eb-a589-cfcfb7422f26&code_challenge=BtO_GmImO-MTfF48z41r8EEFMyThXuJKobLblzhh3ys&code_challenge_method=S256&nonce=aZYI6aGTdiW7TPoMSgeMI5HgAlIz2frJSkxAMHfzQzlMdgridKwTkyJMVhLVUZut&redirect_uri=https%3A%2F%2Ftrial-3402240.okta.com%2Fenduser%2Fcallback&response_type=code&state=5sU1hJ241TDGpIWdxgQ4AN9Q7LjOlbd9Tkigf5Y2o2Bag0bD3lio01ocaPMaliw4&scope=openid%20profile%20email%20okta.users.read.self%20okta.users.manage.self%20okta.internal.enduser.read%20okta.internal.enduser.manage%20okta.enduser.dashboard.read%20okta.enduser.dashboard.manage%20okta.myAccount.sessions.manage%20okta.internal.navigation.enduser.read
+
+omkar.patil+34@iwcts.com / P@assw0rdd
+
+
+Sentry:
+https://helloretriever.sentry.io/issues/
+omkar.patil@iwcts.com / Omkar@9241
+Sign In | Sentry

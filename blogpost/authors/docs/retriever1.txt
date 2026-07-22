@@ -1,0 +1,31 @@
+We can use the existing Device Type dropdown in the admin panel instead of creating a new one.
+
+However, this change impacts multiple areas of the system:
+
+Add the new device types to TabDevice, as billing depends on it.
+Add the new device types to CustomerDevices.device_type, which stores warehouse device types.
+Add the new device type options in the New Device Return flow.
+
+The following areas will also require updates because they currently depend on device type:
+
+Signals and status change logic
+Fulfillment process (shipping logic depends on device type and location)
+
+We also currently have:
+
+A $35 disposal cash amount for Laptop and Monitor disposals, depending on whether the customer chooses disposal.
+An "Ask the employee to return cell phone" checkbox in the New Device Return flow.
+
+A few questions before proceeding:
+
+Should we keep the "Ask the employee to return cell phone" checkbox as-is after adding Cell Phone as a warehouse device type, or should this be reworked?
+How many credits should be deducted for each device type (Laptop, Tablet, Monitor, Cell Phone, Docking Station, and MiFi)?
+What should the disposal cash amount be for each device type?
+
+Which countries should support these new device types? Currently:
+
+Monitors are available only in the US.
+
+Which countries should the new device types be connected to?
+
+The entire fulfillment process for both returns and deployments will eventually change.Should we implement only the return-to-warehouse functionality for now and defer the deployment-related changes to the larger upcoming update?
