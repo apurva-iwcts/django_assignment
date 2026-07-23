@@ -3,6 +3,7 @@ from datetime import timedelta
 from django.db.models import Avg, Count
 from django.utils import timezone
 
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -69,6 +70,7 @@ class UserLoginView(viewsets.ModelViewSet):
 class BlogPostViewSet(viewsets.ModelViewSet):
     queryset = BlogPost.objects.all()
     serializer_class = BlogPostListSerializer
+    # permission_classes = [IsAuthenticated]
     
     http_method_names = ["get", "post", "put", "delete"]
     
@@ -190,6 +192,7 @@ class BlogPostViewSet(viewsets.ModelViewSet):
 class AuthorViewSet(viewsets.ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
+    # permission_classes = [IsAuthenticated]
     
     http_method_names = ["get", "post", "put", "delete"]
     
@@ -213,6 +216,7 @@ class AuthorViewSet(viewsets.ModelViewSet):
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    # permission_classes = [IsAuthenticated]
     http_method_names = ["get", "post", "put", "delete"]
     action_serializers = {
         "retrieve": CategorySerializer,
@@ -266,6 +270,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+    # permission_classes = [IsAuthenticated]
 
     http_method_names = ["get", "post", "put", "delete"]
 
