@@ -108,6 +108,17 @@ REST_FRAMEWORK = {
 #     },
 # }
 
+# add token authentication to swagger
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    },
+}
+
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 

@@ -2,6 +2,7 @@
 from django.utils import timezone
 from rest_framework.exceptions import ValidationError
 from rest_framework import serializers
+from rest_framework.authtoken.models import Token
 
 from .models import Author, Category, BlogPost, Comment, AuthorDocs, User
 
@@ -10,7 +11,35 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "username", "full_name", "email", "is_active", "date_joined"]
-        
+  
+class UserRegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["username", "full_name", "email", "password"]
+        extra_kwargs = {
+            'password': {"write_only": True}
+        }
+
+    def validate_username(self, username):
+        if User.objects.filter(username=username).exists():
+            detail = {
+                "detail": "User Already exist!"
+            }
+            raise ValidationError(detail=detail)
+        return username
+
+    def validate(self, instance):
+        if User.objects.filter(email=instance['email']).exists():
+            raise ValidationError({"message": "Email already taken!"})
+        return instance
+    
+    def create(self, validated_data):
+        password = validated_data.pop("password", None)
+        user = User(**validated_data)
+        user.set_password(password)
+        user.save()
+        Token.objects.create(user=user)
+        return user      
 # class UserRegisterSerializer(serializers.ModelSerializer):
 #     id = serializers.PrimaryKeyRelatedField(read_only=True)
 #     class Meta:

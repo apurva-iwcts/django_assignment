@@ -28,44 +28,42 @@ from blogs.serializers import (
     CommentDetailSerializer,
     CommentCreateSerializer,
     CommentUpdateSerializer,
+    UserRegisterSerializer,
     UserSerializer,
-    # UserRegisterSerializer
 )
 
 class UserRegistrationView(viewsets.ModelViewSet):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserRegisterSerializer
+    http_method_names = ["post"]
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        token = Token.objects.get(user=user)
+        return Response(
+            {"token": token.key, "user": UserSerializer(user).data},
+            status=status.HTTP_201_CREATED,
+        )
     
 class UserLoginView(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    def post(self, request):
+    http_method_names = ["post", "get", "put", "delete"]
+    action_serializers = {
+        "list": UserSerializer,
+        "retrieve": UserSerializer,
+        "create": UserSerializer,
+        "update": UserSerializer,
+    }
+    def create(self, request):
         user = authenticate(username=request.data['username'], password=request.data['password'])
         if user:
             token, created = Token.objects.get_or_create(user=user)
             return Response({'token': token.key})
         else:
             return Response({'error': 'Invalid credentials'}, status=401)
-
-# class UserViewSet(viewsets.ModelViewSet):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-#     http_method_names = ["get", "post", "put", "delete"]
-    
-#     action_serializers = {
-#         "list": UserSerializer,
-#         "retrieve": UserSerializer,
-#         "create": UserRegisterSerializer,
-#         "update": UserRegisterSerializer,
-#     }
-
-#     def get_serializer_class(self):
-#         return self.action_serializers.get(self.action, self.serializer_class)
-    
-#     def logout(self, request):
-#         token = Token.objects.get(user=request.user)
-#         token.delete()
-#         return Response({"success": True, "detail": "Logged out!"}, status=status.HTTP_200_OK)
 
 
 class BlogPostViewSet(viewsets.ModelViewSet):
